@@ -10,7 +10,7 @@ const cors = require('./cors');
 const app = express();
 app.use(session({
   resave: false,
-  name: 'rent-mate-api-session',
+  name: 'generic-entity-repo-api-session',
   saveUninitialized: false,
   secret: process.env.SESSION_SECRET,
   cookie: {

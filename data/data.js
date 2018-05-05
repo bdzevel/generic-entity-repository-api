@@ -5,10 +5,7 @@ const mongoose = require('mongoose');
 const SCHEMAS_DIR = 'schemas';
 
 function connect(mongoUri) {
-  return mongoose.connect(mongoUri, {
-    auth: { authSource: 'admin' },
-    server: { socketOptions: { keepAlive: 1 } },
-  });
+  return mongoose.connect(mongoUri, { keepAlive: 1 });
 }
 
 function loadSchemas() {

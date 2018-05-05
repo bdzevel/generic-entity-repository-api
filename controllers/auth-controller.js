@@ -4,14 +4,14 @@ const passport = require('passport');
 
 const userService = require('../services/user-service');
 
-const ROLES = require('../resources/authorization').ROLES;
+const { ROLES } = require('../resources/authorization');
 
 const User = global.models.user;
 
 const self = {
   register(req, res) {
     const username = req.body.username.toLowerCase();
-    const { password, firstName, lastName } = req.body;
+    const { emailAddress, password, firstName, lastName } = req.body;
     User.findOne({ username })
       .then(function(user) {
         if (user) {
@@ -19,7 +19,7 @@ const self = {
         }
         return bcrypt.hash(password, 10)
           .then(function(hash) {
-            const newUser = new User({ username, firstName, lastName, password: hash, roles: [ ROLES.USER ] });
+            const newUser = new User({ username, firstName, lastName, emailAddress, password: hash, roles: [ ROLES.USER ] });
             return userService.saveUser(newUser)
               .then(() => self.login(req, res));
           })

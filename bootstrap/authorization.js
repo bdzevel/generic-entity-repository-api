@@ -20,8 +20,7 @@ const auth = {
       });
 
       config.activities(function(activities) {
-        const ACTIONS = CONSTANTS.ACTIONS;
-        const ACTIONS_PER_ROLE = CONSTANTS.ACTIONS_PER_ROLE;
+        const { ACTIONS, ACTIONS_PER_ROLE } = CONSTANTS;
         for (const key in ACTIONS) {
           const action = ACTIONS[key];
           activities.can(action, function(identity, params, cb) {

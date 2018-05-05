@@ -9,7 +9,7 @@ module.exports = {
     'guard-for-in': 'off',
     'no-param-reassign': 'off',
 
-    'max-len': ["error", 160],
+    'max-len': [ 'error', 160 ],
     'array-bracket-spacing': [ 'error', 'always' ],
 
     'no-restricted-syntax': [
@@ -17,6 +17,8 @@ module.exports = {
       'LabeledStatement',
       'WithStatement',
     ], 
+    
+    'object-curly-newline': [ 'error', { 'multiline': true, 'consistent': true } ]
   },
   env: {
     node: true,
