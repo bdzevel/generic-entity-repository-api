@@ -10,7 +10,7 @@ function configurePassport() {
   });
 
   passport.deserializeUser(function(id, done) {
-    User.findById(id).lean()
+    User.findById(id).populate('client').lean()
       .then(user => done(null, user));
   });
 

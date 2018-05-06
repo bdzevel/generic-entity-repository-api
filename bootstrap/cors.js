@@ -1,5 +1,5 @@
 const winston = require('winston');
-const corslib = require('cors');
+const cors = require('cors');
 
 const allowedOrigins = [
   process.env.APP_SERVER_URL,
@@ -18,10 +18,8 @@ const config = {
   },
 };
 
-const cors = {
+module.exports = {
   initialize(app) {
-    app.use(corslib(config));
+    app.use(cors(config));
   },
 };
-
-module.exports = cors;

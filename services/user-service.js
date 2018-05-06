@@ -1,15 +1,23 @@
-const self = {
-  getUserProfile(user) {
-    if (!user) {
-      return { isAuthenticated: false };
-    }
+const bcrypt = require('bcrypt');
 
+const User = global.models.user;
+
+const self = {
+  sanitize(user) {
+    if (!user) {
+      return null;
+    }
     const outputFields = [ 'username', 'firstName', 'lastName' ];
-    const profile = outputFields.reduce(function(acc, curr) {
-      acc[curr] = user[curr];
-      return acc;
-    }, { isAuthenticated: true });
-    return profile;
+    return outputFields.reduce((acc, curr) => ({ ...acc, [curr]: user[curr] }), { });
+  },
+
+  createUser(options) {
+    const { username, password, client, firstName, lastName, emailAddress, roles } = options;
+    return bcrypt.hash(password, 10)
+      .then(function(hash) {
+        const newUser = new User({ username, password: hash, client, firstName, lastName, emailAddress, roles });
+        return self.saveUser(newUser);
+      });
   },
 
   saveUser(user) {
@@ -17,4 +25,4 @@ const self = {
   },
 };
 
-Object.assign(module.exports, self);
+Object.freeze(Object.assign(module.exports, self));

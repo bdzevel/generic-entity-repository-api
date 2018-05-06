@@ -31,6 +31,10 @@ You can choose to install the `grunt` command globally for yourself:
 ```
 npm install -g grunt-cli
 ```
+You can choose to install the `migrate-mongo` command globally for yourself:
+```
+npm install -g migrate-mongo
+```
 
 ### Workflow
 
@@ -47,9 +51,11 @@ npm install -g grunt-cli
     2. `controllers/` contains the controllers, which handle requests/responses
         1. They will typically call out to services to do any real work
     3. `resources/` contains files that host constants
-    4. `routes/` contain the definition of the express routes, which route requests to controllers
-    5. `services/` contain all the services which host all business logic
-    6. At the root you will find all config files
+    4. `data/` contains database schemas and migrations
+    5. `routes/` contain the definition of the express routes, which route requests to controllers
+    6. `services/` contain all the services which host all business logic
+    7. At the root you will find all config files
+    8. Use `migrate-mongo create <name>` to generate a migration (in `data/migrations` folder).
 
 3. Lint
 
@@ -60,7 +66,11 @@ npm install -g grunt-cli
     ```
     mongod
     ```
-    2. Run the application
+    2. Run the DB migrations to initialize the database
+    ```
+    migrate-mongo up
+    ```
+    3. Run the application
     ```
     npm start
     ```
