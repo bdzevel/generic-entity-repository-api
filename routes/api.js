@@ -6,6 +6,7 @@ const clientController = require('../controllers/client-controller');
 const { ACTIONS } = require('../resources/authorization');
 
 module.exports = function(app) {
+  app.get('/api/client', mustbe.authorized(ACTIONS.READ_CLIENT_PROFILE), clientController.search);
   app.post('/api/client', mustbe.authorized(ACTIONS.WRITE_CLIENT_PROFILE), clientController.create);
 
   app.post('/api/adminUser', mustbe.authorized(ACTIONS.WRITE_CLIENT_USER_PROFILE), userController.createAdmin);

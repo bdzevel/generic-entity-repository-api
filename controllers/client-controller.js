@@ -24,6 +24,18 @@ const self = {
         return res.status(500).end();
       });
   },
+
+  search(req, res) {
+    Client.find()
+      .then(function(clients) {
+        const output = clients.map(clientService.sanitize);
+        return res.status(200).json(output);
+      })
+      .catch(function(err) {
+        winston.error('Error! ', err);
+        return res.status(500).end();
+      });
+  },
 };
 
 module.exports = self;

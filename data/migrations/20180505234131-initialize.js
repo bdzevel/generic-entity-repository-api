@@ -23,7 +23,7 @@ module.exports = {
         };
         return userService.createUser(userInfo);
       })
-      .then(next);
+      .then(() => next());
   },
 
   down(db, next) {

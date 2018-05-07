@@ -41,7 +41,7 @@ const self = {
   },
 
   create(req, res) {
-    // Override client (if provided) with the current user's client
+    // Set client or override it (if provided) with the current user's client
     //  Client admins are only allowed to create users under their own client
     req.body.clientName = req.user.client.name;
     createUser(req, res, ROLES.CLIENT_USER);
@@ -49,7 +49,12 @@ const self = {
 
   getCurrentUser(req, res) {
     const profile = userService.sanitize(req.user);
-    res.status(200).json(profile);
+    const output = {
+      ...profile,
+      isAuthenticated: !!req.user,
+      isAdmin: !!req.user && req.user.roles.includes(ROLES.FULL_ADMIN),
+    };
+    res.status(200).json(output);
   },
 };
 
